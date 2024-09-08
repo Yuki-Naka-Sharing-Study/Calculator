@@ -61,6 +61,10 @@ class CalculatorFragment : Fragment() {
     }
 
     private fun appendNumber(number: String) {
+        if (currentInput.isEmpty() && number == "0") {
+            // 最初に0が入力された場合は無視
+            return
+        }
         currentInput += number
         binding.number.text = currentInput
     }
@@ -76,6 +80,13 @@ class CalculatorFragment : Fragment() {
     private fun calculateResult() {
         if (currentInput.isNotEmpty()) {
             val currentNumber = currentInput.toDouble()
+
+            // 0除算を防ぐ
+            if (lastOperator == "/" && currentNumber == 0.0) {
+                binding.number.text = "Error"
+                return
+            }
+
             result = when (lastOperator) {
                 "+" -> result + currentNumber
                 "-" -> result - currentNumber
