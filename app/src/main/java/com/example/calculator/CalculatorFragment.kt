@@ -13,6 +13,10 @@ class CalculatorFragment : Fragment() {
     private var _binding: FragmentCalculatorBinding? = null
     private val binding get() = _binding!!
 
+    private var currentInput = ""
+    private var lastOperator = ""
+    private var result = 0.0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,89 +28,85 @@ class CalculatorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.zeroButton.setOnClickListener {
+        // 数字ボタンのリスナー設定
+        binding.zeroButton.setOnClickListener { appendNumber("0") }
+        binding.oneButton.setOnClickListener { appendNumber("1") }
+        binding.twoButton.setOnClickListener { appendNumber("2") }
+        binding.threeButton.setOnClickListener { appendNumber("3") }
+        binding.fourButton.setOnClickListener { appendNumber("4") }
+        binding.fiveButton.setOnClickListener { appendNumber("5") }
+        binding.sixButton.setOnClickListener { appendNumber("6") }
+        binding.sevenButton.setOnClickListener { appendNumber("7") }
+        binding.eightButton.setOnClickListener { appendNumber("8") }
+        binding.nineButton.setOnClickListener { appendNumber("9") }
 
-        }
+        // 演算ボタンのリスナー設定
+        binding.plusButton.setOnClickListener { performOperation("+") }
+        binding.minusButton.setOnClickListener { performOperation("-") }
+        binding.multiplyButton.setOnClickListener { performOperation("*") }
+        binding.divideButton.setOnClickListener { performOperation("/") }
 
-        binding.decimalPointButton.setOnClickListener {
+        binding.decimalPointButton.setOnClickListener { appendDecimal() }
+        binding.percentageButton.setOnClickListener { calculatePercent() }
 
-        }
-
-        binding.equalButton.setOnClickListener {
-
-        }
-
-        binding.oneButton.setOnClickListener {
-
-        }
-
-        binding.twoButton.setOnClickListener {
-
-        }
-
-        binding.threeButton.setOnClickListener {
-
-        }
-
-        binding.plusButton.setOnClickListener {
-
-        }
-
-        binding.fourButton.setOnClickListener {
-
-        }
-
-        binding.fiveButton.setOnClickListener {
-
-        }
-
-        binding.sixButton.setOnClickListener {
-
-        }
-
-        binding.minusButton.setOnClickListener {
-
-        }
-
-        binding.sevenButton.setOnClickListener {
-
-        }
-
-        binding.eightButton.setOnClickListener {
-
-        }
-
-        binding.nineButton.setOnClickListener {
-
-        }
-
-        binding.multiplyButton.setOnClickListener {
-
-        }
-
+        // クリアボタン
         binding.resetButton.setOnClickListener {
-
+            clear()
         }
 
-        binding.plusMinusButton.setOnClickListener {
-
-        }
-
-        binding.percentageButton.setOnClickListener {
-
-        }
-
-        binding.divideButton.setOnClickListener {
-
-        }
-
-        binding.number.setOnClickListener {
-
+        // イコールボタン
+        binding.equalButton.setOnClickListener {
+            calculateResult()
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun appendNumber(number: String) {
+        currentInput += number
+        binding.number.text = currentInput
+    }
+
+    private fun performOperation(operator: String) {
+        if (currentInput.isNotEmpty()) {
+            calculateResult()
+            lastOperator = operator
+            currentInput = ""
+        }
+    }
+
+    private fun calculateResult() {
+        if (currentInput.isNotEmpty()) {
+            val currentNumber = currentInput.toDouble()
+            result = when (lastOperator) {
+                "+" -> result + currentNumber
+                "-" -> result - currentNumber
+                "*" -> result * currentNumber
+                "/" -> result / currentNumber
+                else -> currentNumber
+            }
+            binding.number.text = result.toString()
+            currentInput = result.toString()
+        }
+    }
+
+    private fun appendDecimal() {
+        if (!currentInput.contains(".")) {
+            currentInput += "."
+            binding.number.text = currentInput
+        }
+    }
+
+    private fun calculatePercent() {
+        if (currentInput.isNotEmpty()) {
+            val value = currentInput.toDouble() / 100
+            binding.number.text = value.toString()
+            currentInput = value.toString()
+        }
+    }
+
+    private fun clear() {
+        currentInput = ""
+        lastOperator = ""
+        result = 0.0
+        binding.number.text = "0"
     }
 }
