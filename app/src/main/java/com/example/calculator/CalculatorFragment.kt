@@ -23,8 +23,86 @@ class CalculatorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.setOnClickListener {
-//        }
+
+        binding.zeroButton.setOnClickListener {
+
+        }
+
+        binding.decimalPointButton.setOnClickListener {
+
+        }
+
+        binding.equalButton.setOnClickListener {
+
+        }
+
+        binding.oneButton.setOnClickListener {
+
+        }
+
+        binding.twoButton.setOnClickListener {
+
+        }
+
+        binding.threeButton.setOnClickListener {
+
+        }
+
+        binding.plusButton.setOnClickListener {
+
+        }
+
+        binding.fourButton.setOnClickListener {
+
+        }
+
+        binding.fiveButton.setOnClickListener {
+
+        }
+
+        binding.sixButton.setOnClickListener {
+
+        }
+
+        binding.minusButton.setOnClickListener {
+
+        }
+
+        binding.sevenButton.setOnClickListener {
+
+        }
+
+        binding.eightButton.setOnClickListener {
+
+        }
+
+        binding.nineButton.setOnClickListener {
+
+        }
+
+        binding.multiplyButton.setOnClickListener {
+
+        }
+
+        binding.resetButton.setOnClickListener {
+
+        }
+
+        binding.plusMinusButton.setOnClickListener {
+
+        }
+
+        binding.percentageButton.setOnClickListener {
+
+        }
+
+        binding.divideButton.setOnClickListener {
+
+        }
+
+        binding.number.setOnClickListener {
+
+        }
     }
 
     override fun onDestroyView() {
