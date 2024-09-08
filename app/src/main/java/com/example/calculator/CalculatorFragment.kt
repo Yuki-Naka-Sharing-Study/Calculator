@@ -83,7 +83,7 @@ class CalculatorFragment : Fragment() {
 
             // 0除算を防ぐ
             if (lastOperator == "/" && currentNumber == 0.0) {
-                binding.number.text = "Error"
+                binding.number.text = "0除算はできません。"
                 return
             }
 
